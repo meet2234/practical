@@ -1,0 +1,550 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black
+    }
+
+    img.ajax-cart-item__image {
+        width: 50px;
+        height: 50px;
+    }
+
+    th {
+        color: #4F8CB1;
+        font-size: 20px;
+        font-weight: 600;
+        /*     border:1px solid #4F8CB1; */
+        /*     text-align:start; */
+    }
+
+    .sub {
+        /*     width:5%; */
+    }
+
+    .add {
+        /*     width:5%; */
+    }
+
+    #1 {
+        /*     width:5%; */
+    }
+
+    .trashbin {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<style>
+    }
+
+    .container {
+        width: 800px;
+        margin: 0 auto;
+    }
+
+
+    ul.tabs {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        margin-top: 5%;
+        /*padding-bottom:10px; */
+        border-bottom: 2px solid #A1C0D2;
+        width: 96%;
+    }
+
+    .tab-link current {
+        background: red;
+        color: #222;
+        display: inline-block;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
+
+    ul.tabs li {
+        background: #4F8CB1;
+        color: white;
+        display: inline-block;
+        padding: 12px 29px;
+        cursor: pointer;
+        border-radius: 5px 5px 0px 0px;
+        /* margin-left: 18px; */
+        opacity: 60%;
+    }
+
+    ul.tabs li.current {
+        border-radius: 5px 5px 0px 0px;
+        background: #4F8CB1;
+        color: white;
+        opacity: 100%;
+
+    }
+
+    .tab-content {
+        display: none;
+        border-radius: 5px;
+        padding: 15px;
+
+    }
+
+    .tab-content.current {
+        display: inherit;
+    }
+
+    .up {
+        background: darkgrey;
+        padding: 3px 12px;
+        border: 1px solid black;
+        border-radius: 3px;
+        margin: 10px;
+        cursor: pointer;
+    }
+
+    .down {
+        background: darkgrey;
+        padding: 3px 12px;
+        border: 1px solid black;
+        border-radius: 3px;
+        margin: 10px;
+        cursor: pointer;
+
+    }
+
+    .vln {
+        width: 56%;
+        text-align: center;
+        height: 34px;
+        margin-top: 13px;
+    }
+
+    .fa-trash {
+        display: flex;
+        justify-content: center;
+    }
+  .header-area {
+     height: 80px;
+     background: #111;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+ }
+ 
+ .logo a {
+     font-size: 30px;
+     font-family: 'Open Sans', sans-serif;
+     color: #fff;
+     font-weight: 700;
+     line-height: 1.5;
+     text-decoration: none;
+     display: inline-block;
+     margin-left: 50px;
+ }
+ 
+ .main-menu .open-btn {
+     font-size: 30px;
+     color: #fff;
+     margin-right: 50px;
+ }
+ 
+ .offcanvas-menu {
+     position: fixed;
+     top: 0;
+     right: 0;
+     background: rgb(26, 2, 43);
+     width: 30vw;
+     height: 100vh;
+     display: flex;
+     align-items: center;
+     transform: translateX(100%);
+     transition: all .4s ease;
+ }
+ 
+ .offcanvas-menu.active {
+     transform: translateX(0);
+ }
+ 
+ .close-btn {
+     position: absolute;
+     top: 30px;
+     left: 30px;
+     font-size: 30px;
+     color: #fff;
+ }
+ 
+ .offcanvas-menu ul {
+     width: 100%;
+ }
+ 
+ .offcanvas-menu ul li {
+     list-style: none;
+ }
+ 
+ .offcanvas-menu ul li a {
+     font-size: 30px;
+     font-family: 'Open Sans', sans-serif;
+     color: #fff;
+     font-weight: 400;
+     line-height: 1.5;
+     display: block;
+     text-decoration: none;
+     padding: 15px 0 15px 7vw;
+     transition: all .4s ease;
+ }
+ 
+ .offcanvas-menu ul li a:hover {
+     background: rgb(69, 21, 243);
+ }
+</style>
+
+
+<div class="container" style="padding:20px;">
+    <ul class="tabs">
+        <li class="tab-link current" data-tab="tab-1">Description</li>&nbsp
+        <li class="tab-link" data-tab="tab-2">Reviews</li>
+    </ul>
+
+    <div id="tab-1" class="tab-content current"
+        style="background-color:none;margin-top:24px;color:black;font-size:20px;line-height:28px;width:96%; margin-left:-15px;">
+        <p class="tabdescription">{{ product.description }}</p><br>
+        <tr>
+            <th>Chair_Type</th>
+            <td>
+                {% if product.metafields.custom.chair_type!= blank %}
+                {{ product.metafields.custom.chair_type }}
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <th>Chair_Size</th>
+            <td>{% if product.metafields.custom.chair_size!= blank %}
+                {{ product.metafields.custom.chair_size }}
+                {% endif %}</td>
+        </tr>
+
+        <tr>
+            <th>Chair_Color</th>
+            <td>{% if product.metafields.custom.chiar_color!= blank %}
+                {{ product.metafields.custom.chiar_color }}
+                {% endif %}</td>
+        </tr>
+
+        <tr>
+            <th>Chair_Shape</th>
+            <td>{% if product.metafields.custom.chair_shape!= blank %}
+                {{ product.metafields.custom.chair_shape }}
+                {% endif %}</td>
+        </tr>
+        <tr>
+            <th>Chair_Material</th>
+            <td>{% if product.metafields.custom.chair_material!= blank %}
+                {{ product.metafields.custom.chair_material }}
+                {% endif %}</td>
+        </tr>
+        <tr>
+            <th>Chair_Length</th>
+            <td>{% if product.metafields.custom.chair_length!= blank %}
+                {{ product.metafields.custom.chair_length}}
+                {% endif %}</td>
+        </tr>
+        </table>
+
+        <div class="product-image">
+            <img src="{{ product.featured_image | img_url:'500' }}">
+        </div>
+        <div id="field1">
+            <button type="button" id="sub" class="sub">-</button>
+            <input type="number" id="blik" value="1" min="1" max="500">
+            <button type="button" id="add" class="add">+</button>
+        </div>
+        {%- for option in product.options_with_values -%}
+        <select name="option{{ forloop.index }}" class="single-product-options">
+            <option data-price="noval" value="">{% if product.type == 'Gift Cards' %}-- Select Gift Card --{% else %}
+                Select Option {% endif %}</option>
+            {%- assign optionindex = 'option' | append: forloop.index -%}
+            {% for value in option.values %}
+            {% for variant in product.variants %}
+            {% if variant[optionindex] == value %}
+
+            <option data-id={{ variant.id }}
+                data-price="{%- if variant.compare_at_price > variant.price -%}<span class='ProductMeta__Price Price Price--compareAt Text--subdued u-h4'>{{ variant.compare_at_price | money_without_trailing_zeros }}</span><span class='ProductMeta__Price Price Price--highlight Text--subdued u-h4'>{{ variant.price | money_without_trailing_zeros }}</span>{%- else -%}<span class='ProductMeta__Price Price Text--subdued u-h4'>{{ variant.price | money_without_trailing_zeros }}</span>{%- endif -%}"
+                value="{{ value }}">{{ value }}</option>
+            option
+            {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
+            {% if variant.available == false %}disabled{% endif %}
+            value="{{ variant.id }}"
+            >
+            {{ variant.title }}
+            {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+            - {{ variant.price | money | strip_html }}
+            </option>
+            <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: 'price--large'
+                -%}
+            </div>
+            <div class="product__title" {{ block.shopify_attributes }}>
+                <h1>{{ product.title | escape }}</h1>
+                <a href="{{ product.url }}" class="product__title">
+                    <h2 class="h1" style="font-family:'Playfair Display';font-style: normal;font-weight: 700;">
+                        {{ product.title | escape }}
+                    </h2>
+                </a>
+            </div>
+            {% break %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+
+        </select>
+
+        {% endfor %}
+
+        <br>
+        <button id="add-to-cart-button"><a href="https://developermeet.myshopify.com/products/pants"></a> Add to Cart
+        </button>
+        <div id="total"></div>
+
+        <table>
+            <thead>
+                <tr>
+                    <td><b>Product Image</b></td>
+                    <td><b>Product Details</b></td>
+                    <td><b style="display:flex;justify-content:center">Qunatity</b></td>
+                    <td><b>Delete Product</b></td>
+                    <td><b>Total Price</b></td>
+                </tr>
+            </thead>
+
+            <tbody id="mainpart">
+                <tr>
+                    <td>
+                        <div class="pimage"></div>
+                    </td>
+                    <td>
+                        <div class="qt"></div>
+                    </td>
+                    <td></td>
+                    <td>
+                        <div class="total-price"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+
+<div id="tab-2" class="tab-content">
+    <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+    <div class="item">
+        <div class="backto" style="display:flex;justify-content:center">
+            <div class="forborder"
+                style="border:1px solid grey;border-radius:20px; padding:3px 15px; display: flex;align-items: center;">
+                <i class="fa-solid fa-left-long" style="font-size: 20px; padding:12px;"></i> <span> <a
+                        href="https://developermeet.myshopify.com/collections/all"
+                        style="text-decoration:none;color:grey">back to all products</span></a>
+                </i>
+            </div>
+            </span>
+        </div>
+    </div>
+</div>
+
+ <header class="header-area">
+        <div class="logo">
+            <a href="#">Logo</a>
+        </div>
+        <nav class="main-menu">
+            <a class="open-btn" href="#"><i class="fa-solid fa-bars"></i></a>
+
+            <div class="offcanvas-menu">
+                <a class="close-btn" href="#">
+                   <i class="fas fa-solid fa-xmark"></i>
+                </a>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Price</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+  
+<script>
+
+    $(document).ready(function () {
+        // fetchCart();
+
+        $('ul.tabs li').click(function () {
+            var tab_id = $(this).attr('data-tab');
+
+            $('ul.tabs li').removeClass('current');
+            $('.tab-content').removeClass('current');
+
+            $(this).addClass('current');
+            $("#" + tab_id).addClass('current');
+        });
+
+    });
+
+    $('.add').click(function () {
+        if ($(this).prev().val() < 500) {
+            $(this).prev().val(+$(this).prev().val() + 1);
+        }
+    });
+    $('.sub').click(function () {
+        if ($(this).next().val() > 1) {
+            if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
+        }
+    });
+   const openBtn = document.querySelector('.open-btn');
+const closeBtn = document.querySelector('.close-btn');
+const offcanvasMenu = document.querySelector('.offcanvas-menu')
+
+openBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    offcanvasMenu.classList.add('active');
+});
+
+closeBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    offcanvasMenu.classList.remove('active');
+});
+$(".fa-trash").click(function () {
+  alert("#mainpart")
+});
+
+
+  $(".fa-trash").click(function(){
+  $(this).remove();
+});
+  
+    function increaseCount(a, b) {
+        var input = b.previousElementSibling;
+        var value = parseInt(input.value, 10);
+        value = isNaN(value) ? 0 : value;
+        newVal = value + 1;
+        input.value = newVal;
+        let Addvariant_id = b.getAttribute('data-id');
+        changeItem(Addvariant_id, newVal)
+    }
+
+    function decreaseCount(a, b) {
+        var input = b.nextElementSibling;
+        var value = parseInt(input.value, 10);
+        if (value > 1) {
+            value = isNaN(value) ? 0 : value;
+            newValue = value - 1;
+            input.value = newValue;
+            let Addvariant_id = b.getAttribute('data-id');
+            changeItem(Addvariant_id, newValue)
+        }
+    }
+
+    $(document).on("click", ".fa-trash", function () {
+        let Addvariant_id = $(this).attr('data-id')
+        changeItem(Addvariant_id, 0);
+    });
+ $(".fa-trash").click(function(){
+  $("tr").hide();
+});
+    var variantids;
+    $('.single-product-options').on("change", function () {
+        variantids = $('.single-product-options').children("option:selected").attr('data-id');
+    });
+
+
+    // var tbodyEle = "";
+    //     fetchCart();
+
+    $('#add-to-cart-button').click(function () {
+        var picknumber = $("#blik").val();
+
+        addItemToCart(variantids, picknumber)
+        // fetchCart();
+    });
+
+
+    var tbodyEle = "";
+    fetchCart();
+
+
+    function addItemToCart(variantids, qty) {
+        data = {
+            "id": variantids,
+            "quantity": qty,
+        }
+
+        jQuery.ajax({
+            type: 'POST',
+            url: '/cart/add.js',
+            data: {
+                "id": variantids,
+                "quantity": qty
+            },
+            dataType: 'json',
+            success: function (response) {
+                fetchCart()
+                console.log(response)
+            }
+        });
+    }
+
+    function fetchCart() {
+        $.ajax({
+            type: 'GET',
+            url: '/cart.js',
+            dataType: 'json',
+            success: function (cart) {
+                if (cart.item_count === 0) {
+                    console.log("cart empty");
+                } else {
+                    renderCart(cart);
+                    console.log(cart)
+                }
+
+            },
+        });
+    }
+
+    function renderCart(cart) {
+        clearCartDrawer();
+        cart.items.forEach(function (item, index) {
+            let a = item;
+            const productImage = '<img class="ajax-cart-item__image" src="' + item.image + '" >';
+            const productTitle = '<div class="qt">' + item.title + '<br> ' + item.final_price + '</div>';
+            const productQuantity = '<div class="ajax-cart-item__quantity"> <div class="counter"><button class="down" data-id=' + item.id + ' onClick="decreaseCount(event, this)">-</button><input type="text" class="vln" value="' + item.quantity + '" /><button class="up" data-id=' + item.id + ' onClick="increaseCount(event, this)">+</button></div></div>'
+            const productIcon = '<i data-id="' + item.variant_id + '" class="fa-solid fa-trash"></i>';
+            const productPrice = '<div class="ajax-cart-item__price">' + item.line_price + '</div>';
+            const tbodyAppend = $('#mainpart').append('<tr> <td>' + productImage + '</td> <td>' + productTitle + '</td> <td>' + productQuantity + '</td><td>' + productIcon + '</td> <td>' + productPrice + '</td></tr>')
+            tbodyEle = tbodyEle + tbodyAppend;
+
+        });
+    }
+
+    function clearCartDrawer() {
+        $('#mainpart').empty();
+    }
+
+    function changeItem(variantids, qty) {
+        $.ajax({
+            type: 'POST',
+            url: '/cart/change.js',
+            data: {
+                "id": variantids,
+                "quantity": qty
+            },
+            dataType: 'json',
+            success: function (cart) {
+                fetchCart()
+            },
+        });
+    }
+</script>
